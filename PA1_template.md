@@ -251,7 +251,7 @@ Here we have plotted both histograms against each other (red=Imputed, blue=Actua
 
 ```r
 ggplot(imputed_date_summary, aes(x=total_steps)) + 
-    geom_histogram(data=imputed_date_summary, fill='red', alpha=0.2, position="identity") + 
+    geom_histogram(data=imputed_date_summary, fill='red', alpha=0.2, position="identity", text='imputed values') + 
     geom_histogram(data=date_summary, fill='blue', alpha=0.2, position="identity") + 
     geom_vline(xintercept=median(date_summary$total_steps), color='red', lty=2) + 
     labs(x='Total Steps',y='Frequency') + 

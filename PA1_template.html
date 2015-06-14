@@ -241,7 +241,7 @@ head(imputed_date_summary)</code></pre>
 ##      41    9819   10770   10770   12810   21190</code></pre>
 <p>Here we have plotted both histograms against each other (red=Imputed, blue=Actual) and a vertical line representing the median of our total steps in order to better view the differences. We can see from the plot that the frequency of dates with a total steps at the median increases</p>
 <pre class="r"><code>ggplot(imputed_date_summary, aes(x=total_steps)) + 
-    geom_histogram(data=imputed_date_summary, fill='red', alpha=0.2, position=&quot;identity&quot;) + 
+    geom_histogram(data=imputed_date_summary, fill='red', alpha=0.2, position=&quot;identity&quot;, text='imputed values') + 
     geom_histogram(data=date_summary, fill='blue', alpha=0.2, position=&quot;identity&quot;) + 
     geom_vline(xintercept=median(date_summary$total_steps), color='red', lty=2) + 
     labs(x='Total Steps',y='Frequency') + 
