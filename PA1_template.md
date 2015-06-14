@@ -6,10 +6,10 @@ Chris O'Brien
 
 In order to perform the analysis for this research we will require a few modules.  
 
-For this we will use...  
+For this we will use: 
 
 * data.table - CSV load  
-* dplyr - Data cleaning and manipulation
+* dplyr - data cleaning and manipulation
 * lubridate - date manipulation
 * ggplot2  - data plotting
 * chron - time manipulation
@@ -36,13 +36,13 @@ load_data <- function() {
 data <- load_data()
 ```
 
-Once the data is loaded we will perform some initial processing to the data, this includes...  
+Once the data is loaded we will perform some initial processing to the data, this includes: 
 
 1. Creating a date object from the date string in the csv
 1. Modifying the time string to pad it out with zeros and add seconds
     * Eg. '5' -> '00:05:00'
 1. Create lubridate time object from the time string and merge it with the date
-1. Convert the new time_string to a chron time. This will make exploratory analysis easier.
+1. Convert the new time_string to a chron time. This will make exploratory analysis easier
 1. Add a factor column of whether the date is a weekday or not
 
 
@@ -72,9 +72,9 @@ data <- process_data(data)
 
 ## What is mean total number of steps taken per day?
 
-In order to get an idea of how the amount of steps per day varies we will plot a histogram of the total_step count for the days in our data set
+In order to get an idea of how the amount of steps per day varies we will plot a histogram of the total_step count for the days in our data set.
 
-Before we can begin we need to filter out the NA values of steps. Once that is done we group by the date and sum all the steps on each given day
+Before we can begin we need to filter out the NA values of steps. Once that is done we group by the date and sum all the steps on each given day.
 
 
 ```r
@@ -106,7 +106,7 @@ qplot(total_steps, data=date_summary) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
-Finally get a view into the distribution of the total steps per day, the mean is is red dashed line on the box plot
+Finally get a view into the distribution of the total steps per day, the mean is the red dashed line on the box plot.
 
 
 ```r
@@ -133,9 +133,9 @@ ggplot(date_summary, aes(factor(0), total_steps)) +
 
 To determine the average daily activity pattern we begin by again filtering out the steps where we have NA values. Once that is done we group by the time column and summarise by the mean number of steps over that interval.
 
-Once this is done in order to determine the time which had the max average we filter there the avg steps equals the maximum of the average steps
+Once this is done in order to determine the time which had the max average we filter there the avg steps equals the maximum of the average steps.
 
-Finally this is plotted as a line graph, adjusting the x axis labels to be in the format "HH:MM", finally adding in labels to the graph
+Finally this is plotted as a line graph, adjusting the x axis labels to be in the format "HH:MM", finally adding in labels to the graph.
 
 *Note: I have set the system timezone to GMT here to get the plotting correct. ggplot2 decides that it knows better otherwise and assumes that the time needs to be BST*
 
@@ -172,11 +172,11 @@ The time with the greatest average steps is **08:35:00** known as interval: **83
 
 ## Imputing missing values
 
-To impute the missing values the best way to do this would be calculating a linear model based on the steps for a given interval. Better than this would be to factor it based off the day of the week. We suspect that an individual behaviour is unlikely to change on any given Monday but would between a Sunday and a Monday (It would require further investigation that is outside the scope of this initial analysis) 
+To impute the missing values the best way to do this would be calculating a linear model based on the steps for a given interval. Better than this would be to factor it based off the day of the week. We suspect that an individual behaviour is unlikely to change on any given Monday but would between a Sunday and a Monday (It would require further investigation that is outside the scope of this initial analysis). 
 
-In order to perform our data inference we need to get the rows that we have complete data for. So we filter out for our inital column set and use complete.cases to get the rows we have a full set of data for
+In order to perform our data inference we need to get the rows that we have complete data for. So we filter out for our inital column set and use complete.cases to get the rows we have a full set of data for.
 
-The reason we didn't use 'is.na' on steps is because while we know there wasn't any NA values in date and interval the assignment asked us to find **any** missing values, complete.cases seemed like a better option
+The reason we didn't use 'is.na' on steps is because while we know there wasn't any NA values in date and interval the assignment asked us to find **any** missing values, complete.cases seemed like a better option.
 
 
 ```r
@@ -188,7 +188,7 @@ missing_value_count
 ## [1] 15264
 ```
 
-So the dataset has a total of *15264* missing values
+So the dataset has a total of *15264* missing values.
 
 To perfom our inference we merge our original dataset with out time averaged dataset from earlier. Then create a new column called imputed steps that is initially our time averaged steps then replaced by the actual values where we have one.
 
@@ -217,7 +217,7 @@ head(data)
 ## 6 weekday 2.0943396     2.0943396
 ```
 
-Similar to before we aggregate by date and get a sum of the total imputed steps for the day
+Similar to before we aggregate by date and get a sum of the total imputed steps for the day.
 
 
 ```r
@@ -246,12 +246,12 @@ summary(imputed_date_summary$total_steps)
 ##      41    9819   10770   10770   12810   21190
 ```
 
-Here we have plotted both histograms against each other (red=Imputed, blue=Actual) and a vertical line representing the median of our total steps in order to better view the differences. We can see from the plot that the frequency of dates with a total steps at the median increases 
+Here we have plotted both histograms against each other (red=Imputed, blue=Actual) and a vertical line representing the median of our total steps in order to better view the differences. We can see from the plot that the frequency of dates with a total steps at the median increases. 
 
 
 ```r
 ggplot(imputed_date_summary, aes(x=total_steps)) + 
-    geom_histogram(data=imputed_date_summary, fill='red', alpha=0.2, position="identity", text='imputed values') + 
+    geom_histogram(data=imputed_date_summary, fill='red', alpha=0.2, position="identity") + 
     geom_histogram(data=date_summary, fill='blue', alpha=0.2, position="identity") + 
     geom_vline(xintercept=median(date_summary$total_steps), color='red', lty=2) + 
     labs(x='Total Steps',y='Frequency') + 
@@ -284,7 +284,7 @@ head(weekday_avg)
 ## 6 weekday 00:25:00 1.59035639
 ```
 
-Then plotting the two against each other we see that during the weekday there is arguably more steps on average in the morning which drops off towards midday. Weekends on the otherhand sees more steps later into the evening
+Then plotting the two against each other we see that during the weekday there is arguably more steps on average in the morning which drops off towards midday. Weekends on the otherhand sees more steps later into the evening.
 
 
 ```r
