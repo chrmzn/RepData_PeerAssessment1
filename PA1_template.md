@@ -246,7 +246,7 @@ summary(imputed_date_summary$total_steps)
 ##      41    9819   10770   10770   12810   21190
 ```
 
-Here we have plotted both histograms against each other and a vertical line representing the median of our total steps in order to better view the differences. We can see from the plot that the frequency of dates with a total steps at the median increases 
+Here we have plotted both histograms against each other (red=Imputed, blue=Actual) and a vertical line representing the median of our total steps in order to better view the differences. We can see from the plot that the frequency of dates with a total steps at the median increases 
 
 
 ```r
@@ -289,7 +289,9 @@ Then plotting the two against each other we see that during the weekday there is
 
 ```r
 qplot(time, y=avg_steps, geom='line', facets=weekday~., data=weekday_avg) + 
-    scale_x_chron(format="%H:%M")
+    scale_x_chron(format="%H:%M") +
+    labs(x='Time of day', y='Steps') + 
+    ggtitle('Weekday comparison of average steps per 5 minute interval')
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
